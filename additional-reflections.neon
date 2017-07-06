@@ -1,0 +1,5 @@
+services:
+    -
+        class: App\PHPStan\AdditionalReflections\UserIdentityReflectionExtension
+        tags:
+            - phpstan.broker.propertiesClassReflectionExtension
