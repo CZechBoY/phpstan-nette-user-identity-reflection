@@ -4,6 +4,7 @@ namespace App\PHPStan\AdditionalReflections;
 
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\PropertyReflection;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\Type;
 
 class UserIdentityPropertyReflection implements PropertyReflection
@@ -18,53 +19,74 @@ class UserIdentityPropertyReflection implements PropertyReflection
      */
     private $type;
 
-    /**
-     * @param ClassReflection $declaringClassReflection
-     * @param Type $type
-     */
     public function __construct(ClassReflection $declaringClassReflection, Type $type)
     {
         $this->declaringClassReflection = $declaringClassReflection;
         $this->type = $type;
     }
 
-    /**
-     * @return ClassReflection
-     */
     public function getDeclaringClass(): ClassReflection
     {
         return $this->declaringClassReflection;
     }
 
-    /**
-     * @return bool
-     */
     public function isStatic(): bool
     {
         return false;
     }
 
-    /**
-     * @return bool
-     */
     public function isPrivate(): bool
     {
         return false;
     }
 
-    /**
-     * @return bool
-     */
     public function isPublic(): bool
     {
         return true;
     }
 
-    /**
-     * @return Type
-     */
-    public function getType(): Type
-    {
-        return $this->type;
-    }
+	public function getDocComment(): ?string
+	{
+		return null;
+	}
+
+	public function getReadableType(): Type
+	{
+		return $this->type;
+	}
+
+	public function getWritableType(): Type
+	{
+		return $this->type;
+	}
+
+	public function canChangeTypeAfterAssignment(): bool
+	{
+		return true;
+	}
+
+	public function isReadable(): bool
+	{
+		return true;
+	}
+
+	public function isWritable(): bool
+	{
+		return true;
+	}
+
+	public function isDeprecated(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
+	}
+
+	public function getDeprecatedDescription(): ?string
+	{
+		return null;
+	}
+
+	public function isInternal(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
+	}
 }
